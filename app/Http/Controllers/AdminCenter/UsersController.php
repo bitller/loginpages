@@ -42,7 +42,7 @@ class UsersController extends BaseController {
 
     public function disableAccount(DisableAccount $request) {
         User::where('id', $request->get('user_id'))->update([
-            'disabled' => true
+            'disabled' => true,
         ]);
 
         return response()->json([

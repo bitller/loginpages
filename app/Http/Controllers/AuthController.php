@@ -107,6 +107,13 @@ class AuthController extends BaseController {
             ], 422);
         }
 
+        // Make sure the account is enabled
+        if ($user->disabled) {
+            return response()->json([
+                'account_disabled' => 'This account is disabled.'
+            ]);
+        }
+
         $this->loginUser($user);
         return redirect('/');
     }
