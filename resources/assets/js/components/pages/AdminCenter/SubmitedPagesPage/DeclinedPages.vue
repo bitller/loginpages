@@ -5,10 +5,9 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                    <th>Email</th>
-                </tr>
+                        <th class="text-center">Page name</th>
+                        <th class="text-center">Page url</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr v-for="page in declinedPages">
@@ -29,9 +28,7 @@
         props: ['declinedPages'],
 
         methods: {
-            declinePage: function() {
-                //
-            },
+            //
         },
 
         computed: {

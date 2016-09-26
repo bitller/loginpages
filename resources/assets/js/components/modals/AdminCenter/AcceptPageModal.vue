@@ -107,14 +107,16 @@
                 // Submit to the server
                 this.$http.post('/admin-center/upload-page', form).then(function(success) {
                     // After uploading the photo, make the page accepted
-                    console.log('bau');
                     vm.$http.post('/admin-center/submited-pages/' + vm.page.id + '/accept').then(function(success) {
-                        console.log('suc');
-                        vm.$dispatch('success_alert', success.data.title, success.data.message);
+                        // Now refresh all pages
+                        vm.$dispatch('getSubmitedPages', function() {
+                            console.log('called after reloading submited pages');
+                            vm.closeModal();
+                            vm.$dispatch('success_alert', success.data.title, success.data.message);
+                        });
                     }, function(error) {
-                        console.log('err');
+                        //
                     });
-                    console.log('after');
                 }, function(error) {
 
                     this.$dispatch('close_opened_alert');

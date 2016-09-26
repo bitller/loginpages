@@ -5,8 +5,8 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Page name</th>
-                        <th>Page url</th>
+                        <th class="text-center">Page name</th>
+                        <th class="text-center">Page url</th>
                 </tr>
                 </thead>
                 <tbody>

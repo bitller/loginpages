@@ -29,11 +29,27 @@ class User extends Authenticatable {
         //
     ];
 
-    public function upvotes() {
-        return $this->belongsToMany('Page', 'users_upvotes');
+    public function subscription() {
+        return $this->hasOne('App\Subscription');
     }
 
     public function favoritePages() {
         return $this->belongsToMany('App\Page', 'users_favorite_pages');
+    }
+
+    public function scopeGoogle($query) {
+        return $query->whereNotNull('google_id');
+    }
+
+    public function scopeFacebook($query) {
+        return $query->whereNotNull('facebook_id');
+    }
+
+    public function scopeGithub($query) {
+        return $query->whereNotNull('github_id');
+    }
+
+    public function scopeLatest($query) {
+        return $query->orderBy('created_at', 'desc');
     }
 }

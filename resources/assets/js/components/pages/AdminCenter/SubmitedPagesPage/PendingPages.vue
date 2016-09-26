@@ -23,13 +23,11 @@
 
     <div v-if="!existsPendingPages" class="alert alert-info">Looks like there are no pending pages at the moment.</div>
 
-    <!-- <upload-page-modal></upload-page-modal> -->
     <accept-page-modal></accept-page-modal>
 
 </template>
 
 <script>
-    // import UploadPageModal from '../../../../components/modals/UploadPageModal.vue';
     import AcceptPageModal from '../../../../components/modals/AdminCenter/AcceptPageModal.vue';
 
     export default {
@@ -64,8 +62,12 @@
                     confirmButtonText: 'Yes, decline page!',
                 };
                 this.$dispatch('confirm', data, function() {
-                    vm.$http.post('/admin-center/submited-pages' + pageId + '/decline').then(function(success) {
-                        //
+                    // Make request to decline the page
+                    vm.$http.post('/admin-center/submited-pages/' + pageId + '/decline').then(function(success) {
+                        // Make request to reload submited pages
+                        vm.$dispatch('getSubmitedPages', function() {
+                            vm.$dispatch('success_alert', success.data.title, success.data.message);
+                        });
                     }, function(error) {
                         //
                     });

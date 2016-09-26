@@ -19,11 +19,12 @@ class CreateUsersTable extends Migration {
     public function up() {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('google_id')->unsigned()->nullable()->default(null);
-            $table->bigInteger('facebook_id')->unsigned()->nullable()->default(null);
-            $table->bigInteger('github_id')->unsigned()->nullable()->default(null);
+            $table->string('google_id')->nullable()->default(null);
+            $table->string('facebook_id')->nullable()->default(null);
+            $table->string('github_id')->nullable()->default(null);
             $table->string('name');
             $table->string('email')->unique();
+            $table->boolean('disabled')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -5,11 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Create users_upvotes table.
+ * Create subscriptions table.
  *
  * @author Alexandru Bugarin <alexandru.bugarin@gmail.com>
  */
-class CreateTableUsersUpvotes extends Migration {
+class CreateSubscriptionsTable extends Migration {
 
     /**
      * Run the migrations.
@@ -17,14 +17,12 @@ class CreateTableUsersUpvotes extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('users_upvotes', function(Blueprint $table) {
+        Schema::create('subscriptions', function(Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('page_id')->unsigned();
+            $table->string('email');
+            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -34,6 +32,6 @@ class CreateTableUsersUpvotes extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('users_upvotes');
+        Schema::dropIfExists('subscriptions');
     }
 }

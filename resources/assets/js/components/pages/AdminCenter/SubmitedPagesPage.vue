@@ -34,12 +34,22 @@
                 this.$http.get('/admin-center/submited-pages').then(function(success) {
                     vm.pages = success.data.pages;
                     if (typeof callback !== 'undefined') {
-                        
+                        callback();
                     }
                 }, function(error) {
                     vm.error = 'Ooops. An error occurred. Please refresh the page and try again.';
                 });
             }
-        }
+        },
+
+        events: {
+            'getSubmitedPages': function(callback) {
+                if (typeof callback === 'undefined') {
+                    this.getSubmitedPages();
+                    return;
+                }
+                this.getSubmitedPages(callback);
+            }
+        },
     }
 </script>

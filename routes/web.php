@@ -42,14 +42,23 @@ Route::group(['prefix' => 'auth'], function() {
  * Admin center section. Only authenticated users with admin role have access.
  */
 Route::group(['prefix' => 'admin-center', 'namespace' => 'AdminCenter', 'middleware' => ['auth', 'admin']], function() {
+    // Submited pages
     Route::group(['prefix' => 'submited-pages'], function() {
         Route::get('/', 'SubmitedPagesController@index');
         Route::post('/{pageId}/accept', 'SubmitedPagesController@acceptPage');
         Route::post('/{pageId}/decline', 'SubmitedPagesController@declinePage');
     });
+
+    // Upload page
     Route::group(['prefix' => 'upload-page'], function() {
         Route::get('/get-page-details/{pageId}', 'UploadPageController@getPage');
         Route::post('/', 'UploadPageController@uploadPage');
     });
-    Route::get('/users', 'UsersController@index');
+
+    // Users
+    Route::group(['prefix' => 'users'], function() {
+        Route::get('/', 'UsersController@index');
+        Route::post('/enable-account', 'UsersController@enableAccount');
+        Route::post('/disable-account', 'UsersController@disableAccount');
+    });
 });

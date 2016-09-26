@@ -75,7 +75,10 @@ class AuthController extends BaseController {
      */
     protected function loginOrRegisterUser($provider) {
 
-        $user = User::where($provider . '_id', $this->user->getId())->first();
+        // Check if a user exists with given email
+        $user = User::where('email', $this->user->getEmail())->first();
+
+        // If user does not exists, register
         if (!$user) {
             $user = $this->registerUser($provider);
             // First user will be admin, all othrs will be normal
@@ -88,8 +91,23 @@ class AuthController extends BaseController {
             }
         }
 
-        $this->loginUser($user);
+        // If we arrive here an user with given email already exists. Now check if is registered with given provider
+        if (!User::where('email', $this->user->getEmail())->where($provider . '_id', $this->user->getId())->count()) {
 
+            // If arrive here user exists in database but wrong choosed the wrong provider. Display a message to inform about that
+            $providerFormatted = 'Google';
+            if ($user->facebook_id) {
+                $providerFormatted = 'Facebook';
+            }
+            if ($user->github_id) {
+                $providerFormatted = 'Github';
+            }
+            return response()->json([
+                'wrong_provider' => 'You need to connect with ' . $providerFormatted . ' in order to access your account.',
+            ], 422);
+        }
+
+        $this->loginUser($user);
         return redirect('/');
     }
 
