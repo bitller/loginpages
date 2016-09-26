@@ -150,7 +150,7 @@
                     vm.$http.post('/admin-center/users/disable-account', data).then(function(success) {
                         // Reload users
                         vm.getUsers(function() {
-                            vm.$dispatch('success_alert', success.data.title, success.data.message);                            
+                            vm.$dispatch('success_alert', success.data.title, success.data.message);
                         });
                     }, function(error) {
                         //
@@ -158,8 +158,29 @@
                 });
             },
 
-            deleteAccount: function() {
-                //
+            deleteAccount: function(userId) {
+                var vm = this;
+
+                // Ask for confirmation
+                var config = {
+                    title: 'Are you sure?',
+                    message: 'Selected account will be deleted. This action can not be undone.',
+                    confirmButtonText: 'Yes, I\'m sure',
+                };
+                this.$dispatch('confirm', config, function() {
+                    // Make request to delete the account after admin confirmed the action
+                    var data = {
+                        user_id: userId,
+                    };
+                    vm.$http.post('/admin-center/users/delete-account', data).then(function(success) {
+                        // Reload users
+                        vm.getUsers(function() {
+                            vm.$dispatch('success_alert', success.data.title, success.data.message);
+                        });
+                    }, function(error) {
+                        //
+                    });
+                })
             },
 
             userProviderById: function(user) {

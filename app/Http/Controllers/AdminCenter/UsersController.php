@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminCenter;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\AdminCenter\EnableAccount;
+use App\Http\Requests\AdminCenter\DeleteAccount;
 use App\Http\Requests\AdminCenter\DisableAccount;
 use Illuminate\Http\Request;
 use App\User;
@@ -62,8 +63,13 @@ class UsersController extends BaseController {
         ]);
     }
 
-    public function deleteAccount() {
-        //
+    public function deleteAccount(DeleteAccount $request) {
+        User::where('id', $request->get('user_id'))->delete();
+
+        return response()->json([
+            'title' => 'Success!',
+            'message' => 'Account deleted!'
+        ]);
     }
 
 }

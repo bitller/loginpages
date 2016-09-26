@@ -60,5 +60,6 @@ Route::group(['prefix' => 'admin-center', 'namespace' => 'AdminCenter', 'middlew
         Route::get('/', 'UsersController@index');
         Route::post('/enable-account', 'UsersController@enableAccount');
         Route::post('/disable-account', 'UsersController@disableAccount');
+        Route::post('/delete-account', 'UsersController@deleteAccount');
     });
 });
