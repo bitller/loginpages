@@ -36,7 +36,7 @@
                                 <li v-if="userIsAdmin"><a @click="showUploadPageModal" href="#"><span class="glyphicon glyphicon-plus"></span>&nbsp;Upload page</a></li>
                                 <li v-if="userIsAdmin" class="divider"></li>
                                 <li v-if="userIsAdmin"><a href="/admin-center/users"><span class="glyphicon glyphicon-user"></span>&nbsp;Users</a></li>
-                                <li v-if="userIsAdmin"><a href="/admin-center/newsletter"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Newsletter</a></li>
+                                <li v-if="userIsAdmin"><a href="/admin-center/newsletters"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Newsletters</a></li>
                                 <li v-if="userIsAdmin" v-text=""class="divider"></li>
                                 <li><a href="/auth/logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Log out</a></li>
                             </ul>

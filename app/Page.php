@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Newsletter;
 
 /**
  * Model of pages table.
@@ -29,4 +30,11 @@ class Page extends Model {
         return $query->where('status', 'approved');
     }
 
+    public function scopeSinceLastNewsletter($query) {
+        $lastNewsletter = Newsletter::orderBy('created_at', 'desc')->first();
+        if (!$lastNewsletter) {
+            return $query;
+        }
+        return $query->where('created_on', '>=', $lastNewsletter->created_at);
+    }
 }

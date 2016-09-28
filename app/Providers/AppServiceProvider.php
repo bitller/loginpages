@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use DB;
 use Auth;
 use Validator;
+use App\Newsletter;
 use App\User;
 
 class AppServiceProvider extends ServiceProvider {
@@ -41,6 +42,13 @@ class AppServiceProvider extends ServiceProvider {
         Validator::extend('not_admin', function($attribute, $value, $parameters, $validator) {
             $user = User::where('id', $value)->first();
             if ($user->hasRole('admin')) {
+                return false;
+            }
+            return true;
+        });
+
+        Validator::extend('newsletter_not_sent', function($attribute, $value, $parameters, $validator) {
+            if (Newsletter::where('id', $value)->where('sent', true)->count()) {
                 return false;
             }
             return true;

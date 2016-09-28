@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\AdminCenter\NewsletterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,5 +62,13 @@ Route::group(['prefix' => 'admin-center', 'namespace' => 'AdminCenter', 'middlew
         Route::post('/enable-account', 'UsersController@enableAccount');
         Route::post('/disable-account', 'UsersController@disableAccount');
         Route::post('/delete-account', 'UsersController@deleteAccount');
+    });
+
+    // Newsletter
+    Route::group(['prefix' => 'newsletters'], function() {
+        Route::get('/', 'NewsletterController@index');
+        Route::get('/pages-since-last-newsletter', 'NewsletterController@getPagesSinceLastNewsletter');
+        Route::post('/', 'NewsletterController@createNewsletter');
+        Route::post('/delete', 'NewsletterController@deleteNewsletter');
     });
 });

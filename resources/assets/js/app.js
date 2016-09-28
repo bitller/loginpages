@@ -21,6 +21,7 @@ Vue.component('submit-page', require('./components/pages/SubmitPage.vue'));
 Vue.component('favorites-page', require('./components/pages/FavoritesPage.vue'));
 Vue.component('submited-pages-page', require('./components/pages/AdminCenter/SubmitedPagesPage.vue'));
 Vue.component('users-page', require('./components/pages/AdminCenter/UsersPage.vue'));
+Vue.component('newsletter-page', require('./components/pages/AdminCenter/NewsletterPage.vue'));
 
 const app = new Vue({
     el: 'body',
